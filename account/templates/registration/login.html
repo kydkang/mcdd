@@ -1,0 +1,49 @@
+{# For login bootstrapping -- watch  https://www.youtube.com/watch?v=Sy8dVjJqLHI&t=564s  #}
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+
+{% block title %}Log-in{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <h1>Log-in</h1>
+                    {% if form.errors %}
+                        <p>
+                            Your username and password didn't match.
+                            Please try again. 
+                        </p>
+                    {% else %}
+                        <p>
+                            Please, use the following form to log-in.
+                            If you don't have an account <a href="{% url 'register' %}">register here</a>.
+                        </p>
+                    {% endif %} 
+
+                    <div class="login-form">
+                        <form action="{% url 'login' %}" method="post">
+                            {{ form|crispy }}
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ next }}" /> 
+                            <div class="col-4">
+                                <div class="row justify-content-start">
+                                    <input type="submit" class="btn btn-primary btn-block mt-3" value="Log-in">
+                                </div>
+                            </div>
+                            <div class="row text-left">
+                                <a href="{% url 'password_reset' %}" class="btn btn-link mt-2  ">
+                                    Forgotten your password?
+                                </a>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
