@@ -99,21 +99,33 @@
 
             <div class="col py-3">
                 <div class="container">
-                    {% if messages %}              {# Django4ByExample Chapter 4 #}
-                        <ul class="messages">
-                            {% for message in messages %}
-                                <li class="{{ message.tags }}">
-                                    {{ message|safe }}
-                                    <a href="" class="close" >x</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
+                    {% comment %}
+                            {% if messages %}              {# Django4ByExample Chapter 4 #}
+                                <ul class="messages">
+                                    {% for message in messages %}
+                                        <li class="{{ message.tags }}">
+                                            {{ message|safe }}
+                                            <a href="" class="close" >x</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                    {% endcomment %}
+
+                    {% if messages %}
+                        {% for msg in messages %}
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            {{msg.message}}
+                        </div>
+                        {% endfor %}
                     {% endif %}
 
                     {% block content %}
                     {% endblock %}
                 </div>
             </div>
+
         </div>
         
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
