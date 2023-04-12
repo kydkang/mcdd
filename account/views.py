@@ -24,7 +24,7 @@ def register(request):
     return render(request, 'account/register.html', {'user_form':user_form})
 
 @login_required
-def edit(request):
+def user_edit(request):
     if request.method == 'POST':
         user_form = UserEditForm(instance=request.user, data=request.POST) 
         profile_form = ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)

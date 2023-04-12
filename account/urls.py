@@ -2,6 +2,7 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from . import views
 
+##  app_name = 'account'  ## use namespace for other apps 
 
 urlpatterns = [
     ## To use HTML version of email template  ## 
@@ -19,6 +20,6 @@ urlpatterns = [
 
     path('', views.dashboard, name='dashboard'), 
     path('register/', views.register, name='register'), 
-    path('edit/', views.edit, name='edit'), 
+    path('user_edit/', views.user_edit, name='user_edit'), 
     
 ]

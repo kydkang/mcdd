@@ -23,7 +23,7 @@ from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = os.environ.get("DEBUG")  ## You need to set DEBUG to "" in .env file of production 
-ALLOWED_HOSTS = ['sngreecu.pythonanywhere.com', '127.0.0.1']   ## '127.0.0.1' should be removed in pythonanywhere 
+ALLOWED_HOSTS = ['mcdd.pythonanywhere.com', '127.0.0.1']   ## '127.0.0.1' should be removed in pythonanywhere 
 
 # Application definition
 
@@ -58,14 +58,17 @@ ROOT_URLCONF = 'mcdd.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'), 
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.debug', 
+                'django.template.context_processors.request', 
+                'django.contrib.auth.context_processors.auth',  
+                'django.contrib.messages.context_processors.messages',  
+                'django.template.context_processors.media',	## TangoWithDjango2-page60
             ],
         },
     },
@@ -83,7 +86,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -128,9 +130,9 @@ LOCALE_PATHS = [
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]    ## additional static folder in project-level 
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]    ## additional static folder in project-level 
 STATIC_URL = 'static/'                                   ## The URL to use when referring to static files
-# The absolute path to the directory where collectstatic will collect static files for deployment.
+# STATIC_ROOT > The absolute path to the directory where collectstatic will collect static files for deployment.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')    ## https://help.pythonanywhere.com/pages/DjangoStaticFiles/
 MEDIA_URL = 'media/'       
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -146,12 +148,13 @@ LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 
-# EMAIL_BACKEND ='django.core.mail.backends.console.EmailBackend' 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")  
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True 
+## Django4ByExample page 64
+EMAIL_BACKEND ='django.core.mail.backends.console.EmailBackend' 
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+# EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")  
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True 
 
 ## https://stackoverflow.com/questions/71641974/implementing-django-bootstrap-crispy-forms-into-default-signup-login-pages
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
