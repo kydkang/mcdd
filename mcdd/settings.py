@@ -16,14 +16,15 @@ from django.utils.translation import gettext_lazy as _
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-## https://stackoverflow.com/questions/41546883/what-is-the-use-of-python-dotenv
-## the secret values are stored in .env file  << ".env" is included in .gitignore file 
+## the secret values are stored in .env file  << ".env" is included in .gitignore file  (not sent to github)
+# https://allthingstechie.hashnode.dev/using-env-file-in-a-django-project
 import os
-from dotenv import load_dotenv, find_dotenv
-load_dotenv(find_dotenv())
-SECRET_KEY = os.environ.get("SECRET_KEY")
-DEBUG = os.environ.get("DEBUG")  ## You need to set DEBUG to "" in .env file of production 
+from dotenv import load_dotenv 
+load_dotenv()
+SECRET_KEY = os.getenv("SECRET_KEY")
+DEBUG = os.getenv("DEBUG") == 'True'    ## Should use single quote for 'True' 
 ALLOWED_HOSTS = ['mcdd.pythonanywhere.com', '127.0.0.1']   ## '127.0.0.1' should be removed in pythonanywhere 
+
 
 # Application definition
 
@@ -53,7 +54,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',  
 ]
 
-ROOT_URLCONF = 'mcdd.urls'
+ROOT_URLCONF = 'mcdd.urls'       ## root url.py
 
 TEMPLATES = [
     {
@@ -122,7 +123,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-LOCALE_PATHS = [
+LOCALE_PATHS = [   
     BASE_DIR / 'locale', 
 ]
 
@@ -149,12 +150,12 @@ LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 
 ## Django4ByExample page 64
-EMAIL_BACKEND ='django.core.mail.backends.console.EmailBackend' 
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
-# EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")  
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True 
+# EMAIL_BACKEND ='django.core.mail.backends.console.EmailBackend' 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")  
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True 
 
 ## https://stackoverflow.com/questions/71641974/implementing-django-bootstrap-crispy-forms-into-default-signup-login-pages
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

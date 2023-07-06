@@ -8,6 +8,10 @@ from django.contrib import messages
 
 @login_required
 def dashboard(request):
+    ## superuser created by 'python manage.py createsuperuser' does not have its Profile object. Let's create one. 
+    if request.user.is_superuser:   
+        if not Profile.objects.filter(user=request.user).exists():
+            Profile.objects.create(user=request.user)
     return render(request, 'account/dashboard.html', {'section': 'dashboard'})
 
 def register(request):
