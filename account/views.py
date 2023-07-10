@@ -12,7 +12,8 @@ def dashboard(request):
     if request.user.is_superuser:   
         if not Profile.objects.filter(user=request.user).exists():
             Profile.objects.create(user=request.user)
-    return render(request, 'account/dashboard.html', {'section': 'dashboard'})
+    # return render(request, 'account/dashboard.html', {'section': 'dashboard'})
+    return render(request, 'account/dashboard.html')
 
 def register(request):
     if request.method == 'POST':
@@ -21,7 +22,7 @@ def register(request):
             new_user = user_form.save(commit=False)
             new_user.set_password(user_form.cleaned_data['password']) 
             new_user.save()
-            Profile.objects.create(user=new_user) 
+            Profile.objects.create(user=new_user)    ## create profile for the new user
             return render(request, 'account/register_done.html', {'new_user':new_user})
     else:
         user_form = UserRegistrationForm()
