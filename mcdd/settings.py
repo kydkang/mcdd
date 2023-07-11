@@ -23,8 +23,8 @@ from dotenv import load_dotenv
 load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG") == 'True'    ## Should use single quote for 'True' 
-ALLOWED_HOSTS = ['mcdd.pythonanywhere.com', '127.0.0.1']   ## '127.0.0.1' should be removed in pythonanywhere 
 
+ALLOWED_HOSTS = ['mcdd.pythonanywhere.com', '127.0.0.1']   ## '127.0.0.1' should be removed in pythonanywhere 
 
 # Application definition
 
